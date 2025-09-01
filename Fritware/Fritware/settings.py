@@ -87,13 +87,21 @@ WSGI_APPLICATION = 'Fritware.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         # ...
+#         "OPTIONS": {
+#             "init_command": "PRAGMA synchronous=3; PRAGMA cache_size=2000;",
+#         },
+#     }
+# }
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        # ...
-        "OPTIONS": {
-            "init_command": "PRAGMA synchronous=3; PRAGMA cache_size=2000;",
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

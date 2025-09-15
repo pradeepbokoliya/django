@@ -11,35 +11,74 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		 <form action="{% url 'member_login' %}" method="POST" onsubmit="return validatePasswords()">
+		 <form action="" method="POST" onsubmit="return validatePasswords()">
 			{% csrf_token %}
-			<h1>Create Account</h1>
-            <img src="{% static 'b2bmember/images/logo.png'%}" alt="Fritware" style="width:250px;height:700px;" >
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use your email for registration</span>
-			{{ fm.non_field_errors }}
+				<h1>Create Account</h1>
+            <img src="{% static 'b2bmember/images/logo.png'%}" alt="Fritware" style="width:300px;height:70px;" >
+		{% if form.non_field_errors %}
+        <div class="error">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+   		 {% endif %}
 
-       		 {{ fm.first_name.errors }}
-       		 <input type="text" name="first_name" placeholder="First Name" value="{{ fm.first_name.value }}" required />
+    <!-- First Name Field + Errors -->
+    	{% if form.first_name.errors %}
+        <div class="error">
+            {% for error in form.first_name.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    	{% endif %}
+    	<input type="text" name="first_name" placeholder="First Name" value="{{ form.first_name.value|default:'' }}" required />
 
-       		 {{ fm.last_name.errors }}
-       		 <input type="text" name="last_name" placeholder="Last Name" value="{{ fm.last_name.value }}"  required/>
+    <!-- Last Name Field + Errors -->
+    	{% if form.last_name.errors %}
+        <div class="error">
+            {% for error in form.last_name.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+   		 {% endif %}
+   		 <input type="text" name="last_name" placeholder="Last Name" value="{{ form.last_name.value|default:'' }}" required />
 
-       		 {{ fm.email.errors }}
-        	<input type="email" name="email" placeholder="Email" value="{{ fm.email.value }}" required />
+    <!-- Email Field + Errors -->
+   		 {% if form.email.errors %}
+    	 <div class="error">
+            {% for error in form.email.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+   		 {% endif %}
+    	<input type="email" name="email" placeholder="Email" value="{{ form.email.value|default:'' }}" required />
 
-        	{{ fm.password1.errors }}
-        	<input type="password" id="password1" name="password1" placeholder="Password" required/>
+   		
 
-        	{{ fm.password2.errors }}
-        	<input type="password" id="password2" name="password2" placeholder="Confirm Password" required/>
+    <!-- Password1 Field + Errors -->
+    	{% if form.password1.errors %}
+        <div class="error">
+            {% for error in form.password1.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    	{% endif %}
+    	<input type="password" id="password1" name="password1" placeholder="Password" required />
 
-       		 <button type="submit">Sign Up</button>
-			
+    <!-- Password2 Field + Errors -->
+  		  {% if form.password2.errors %}
+        <div class="error">
+            {% for error in form.password2.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+   		 {% endif %}
+    	<input type="password" id="password2" name="password2" placeholder="Confirm Password" required />
+
+    <!-- Password mismatch error from JS (client-side) -->
+  		  <div id="password-error" class="error" style="color:red;"></div>
+
+   		 <button type="submit">Sign Up</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -55,7 +94,7 @@
 			<input type="email" placeholder="Email" required/>
 			<input type="password" placeholder="Password" required />
 			<a href="#">Forgot your password?</a>
-			<button onclick= "disp()">Sign In</button>
+			{% comment %} <button onclick= "disp()">Sign In</button> {% endcomment %}
 		</form>
 	</div>
 	<div class="overlay-container">

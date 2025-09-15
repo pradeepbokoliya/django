@@ -14,14 +14,21 @@ def rt(request):
 
 
 def member_login(request):
-    fm = SignupForm() 
-    return render(request,"b2bmember/login.html", {'form':fm})
-
-def user_login(request):
+    form = SignupForm()
+    title = "Member Login"
     if request.method == "POST":
-        fm = SignupForm(request.POST)
-        if fm.is_valid():
-            fm.save()
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
     else:
-        fm = SignupForm()
-    return render(request,"b2bmember/test.html", {'form':fm})
+        form = SignupForm()
+    return render(request,"b2bmember/login.html", {'form':form, 'title' : title})
+
+# def user_login(request):
+#     if request.method == "POST":
+#         fm = SignupForm(request.POST)
+#         if fm.is_valid():
+#             fm.save()
+#     else:
+#         fm = SignupForm()
+#     return render(request,"b2bmember/test.html", {'form':fm})

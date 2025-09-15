@@ -11,20 +11,35 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="{% url "member_login" %}" method="POST">
+		 <form action="{% url 'member_login' %}" method="POST" onsubmit="return validatePasswords()">
 			{% csrf_token %}
 			<h1>Create Account</h1>
-            <img src="{% static 'b2bmember/images/logo.png'%}" alt="Fritware" style="width:300px;height:70px;" >
+            <img src="{% static 'b2bmember/images/logo.png'%}" alt="Fritware" style="width:250px;height:700px;" >
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your email for registration</span>
-			<input type="text" name="name" placeholder="Name" />
-			<input type="email" name="email" placeholder="Email" />
-			<input type="password" name="raw_password" placeholder="Password" />
-			<button>Sign Up</button>
+			{{ fm.non_field_errors }}
+
+       		 {{ fm.first_name.errors }}
+       		 <input type="text" name="first_name" placeholder="First Name" value="{{ fm.first_name.value }}" required />
+
+       		 {{ fm.last_name.errors }}
+       		 <input type="text" name="last_name" placeholder="Last Name" value="{{ fm.last_name.value }}"  required/>
+
+       		 {{ fm.email.errors }}
+        	<input type="email" name="email" placeholder="Email" value="{{ fm.email.value }}" required />
+
+        	{{ fm.password1.errors }}
+        	<input type="password" id="password1" name="password1" placeholder="Password" required/>
+
+        	{{ fm.password2.errors }}
+        	<input type="password" id="password2" name="password2" placeholder="Confirm Password" required/>
+
+       		 <button type="submit">Sign Up</button>
+			
 		</form>
 	</div>
 	<div class="form-container sign-in-container">

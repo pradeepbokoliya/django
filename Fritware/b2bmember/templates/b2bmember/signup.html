@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'b2bmember/css/signup.css' %}">
+    <title>Signup Form Design | CodeLab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   
+    <div class="wrapper">
+      {% if messages %}
+         <div class="messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+         </div>
+      {% endif %}
+        <div class="title">Signup Form</div>
+
+        <form action="" method="POST" onsubmit="return validatePasswords()">
+            {% csrf_token %}
+
+            <!-- Non-field errors -->
+            {% if form.non_field_errors %}
+                <div class="error">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="field">
+                {% if form.first_name.errors %}
+                    <div class="error">
+                        {% for error in form.first_name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <input type="text" name="first_name"  value="{{ form.first_name.value|default:'' }}" required>
+                <label>First Name</label>
+            </div>
+
+            <div class="field">
+                {% if form.last_name.errors %}
+                    <div class="error">
+                        {% for error in form.last_name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <input type="text" name="last_name"  value="{{ form.last_name.value|default:'' }}" required>
+                <label>Last Name</label>
+            </div>
+
+            <div class="field">
+                {% if form.email.errors %}
+                    <div class="error">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <input type="email" name="email"  value="{{ form.email.value|default:'' }}" required>
+                <label>Email Address</label>
+            </div>
+
+            <div class="field">
+                {% if form.password1.errors %}
+                    <div class="error">
+                        {% for error in form.password1.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <input type="password" id="password1" name="password1"  required>
+                <label>Password</label>
+            </div>
+
+            <div class="field">
+                {% if form.password2.errors %}
+                    <div class="error">
+                        {% for error in form.password2.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <input type="password" id="password2" name="password2" required>
+                <label>Confirm Password</label>
+            </div>
+
+            <!-- Client-side password mismatch error placeholder -->
+            <div id="password-error" class="error" style="color:red;"></div>
+
+            <div class="content">
+                <div class="checkbox">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <div class="pass-link">
+                    <a href="#">Forgot password?</a>
+                </div>
+            </div>
+
+            <div class="field">
+                <input type="submit" name="signup_submit" value="Signup">
+            </div>
+
+            <div class="signup-link">
+                Already a member? <a href="#">Login now</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'b2bmember/js/scripts.js' %}"></script>
+</body>
+
+</html>
